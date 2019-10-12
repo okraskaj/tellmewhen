@@ -1,0 +1,8 @@
+README.md
+setup.py
+tellmewhen.py
+tellmewhen.egg-info/PKG-INFO
+tellmewhen.egg-info/SOURCES.txt
+tellmewhen.egg-info/dependency_links.txt
+tellmewhen.egg-info/entry_points.txt
+tellmewhen.egg-info/top_level.txt

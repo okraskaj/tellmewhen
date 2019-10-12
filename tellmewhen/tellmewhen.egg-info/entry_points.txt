@@ -1,0 +1,3 @@
+[console_scripts]
+tellmewhen = tellmewhen:get_stdout
+
