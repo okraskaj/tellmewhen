@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="col-md-12">
+    <img src="tellmewhen.png">
+    <table id="outputs" class="table table-dark">
+      <thead>
+        <tr>
+            <th scope="col">timestamp</th>
+            <th scope="col">output</th>
+            <th scope="col">metrics</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+</div>
+<!-- Import and configure the Firebase SDK -->
+<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+<!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+    firebase.initializeApp({
+        databaseURL: "https://tellmewhen-app.firebaseio.com",
+        messagingSenderId: '98755907697'
+    });
+
+    var outputs_ref = firebase.database().ref('outputs');
+    var colors_dict = {
+        'accuracy': 'success',
+        'epoch': 'primary',
+        'loss': 'danger',
+        'val_accuracy': 'info',
+        'val_loss': 'warning'
+    };
+    outputs_ref.on('child_added', function(snapshot) {
+        // updateStarCount(postElement, snapshot.val());
+        if (snapshot && snapshot.val()){
+            val = snapshot.val()
+            // command row
+            if(val.date && val.file_name){
+                $('#outputs tr:last').after("<tr class='text-success'><td colspan=2> >"+val.file_name+"</td></tr>");
+            }
+            // normal output
+            if(val.outputs && val.date){
+                metrics = '';
+                if (val.metrics){
+                    console.log(val.metrics)
+                    for(var k in val.metrics){
+                        metrics+=
+                            '<button type="button" class="btn btn-'+colors_dict[k]+'">' +
+                            k + ': <span class="badge">' +
+                            val.metrics[k]+' </span></button>';
+                    }
+                }
+                $('#outputs tr:last').after(
+                    "<tr class='.bg-secondary'>" +
+                    "<td>"+val.date+"</td><td>"+val.outputs+"</td>"+
+                    "<td>"+metrics+"</td>"
+                    +"</tr>");
+            }
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

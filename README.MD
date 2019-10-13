@@ -13,7 +13,7 @@ To install the console tool just clone this repo...
 ```bash
 git clone https://github.com/okraskaj/tellmewhen.git
 ```
- install it with pip (preferably in a virtualenv)
+and install it with pip (preferably in a virtualenv)
 ```bash
 mkvirtualenv tellmewhen
 cd tellmewhen
