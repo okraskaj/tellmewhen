@@ -5,3 +5,7 @@ def parse_tf_output(output):
                       for value in output.split('-')[2:]}
     return output_metrics
 
+def get_epoch(output):
+    output = output.decode()
+    epoch_nb = output.strip().split(' ')[1].split('/')[0]
+    return epoch_nb
