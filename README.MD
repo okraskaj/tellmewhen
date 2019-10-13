@@ -25,7 +25,7 @@ pip install -e
 You can use the tool with any python tool that prints to the standard output:
 
 ```bash
-tellmewhen sample_mnist.py
+tellmewhen sample_mnist.py --tf 
 
 ```
 
